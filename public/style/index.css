@@ -1,0 +1,11 @@
+.row_action {
+    text-decoration: none;
+    color: #6c757d;
+}
+i.fa {
+    width: 1rem;
+    height: 1rem;
+}
+.new__row {
+    font-size: 2rem;
+}
