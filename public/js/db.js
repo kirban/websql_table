@@ -21,7 +21,7 @@ function initDb() {
 
 function selectAll(db, onResult = null, onError = null) {
     db.transaction(function (t) {
-        t.executeSql("SELECT * FROM parts", [], onResult, onError)
+        t.executeSql("SELECT rowid,* FROM parts", [], onResult, onError)
     })
 }
 

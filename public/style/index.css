@@ -1,7 +1,14 @@
 .row_action {
+    cursor: pointer;
     text-decoration: none;
     color: #6c757d;
 }
+
+.row_action:hover {
+    color: #007bff;
+    transition: ease-in-out .3s;
+}
+
 i.fa {
     width: 1rem;
     height: 1rem;
