@@ -1,27 +1,48 @@
 let data = [],
-    addingData = false;
+    addingData = false,
+    sortDirection = false; // sortDirection = false - equals desc sort direction
 
 function sortColumn(columnName) {
-    const dataType = typeof data[0][columnName],
-        sortDirection = !sortDirection;
+    const dataType = typeof data[0][columnName];
+    sortDirection = !sortDirection;
 
-    if (columnName === 'date') {
-        dataType = 'date'
+    document.querySelectorAll('th[scope="col"]').forEach(el => {
+        el.setAttribute('data-sort', 'none');
+    })
+
+    if (sortDirection) {
+        event.target.setAttribute('data-sort', 'asc')
+    } else {
+        event.target.setAttribute('data-sort', 'desc')
     }
 
-    switch (columnName) {
+    switch (dataType) {
         case 'number':
-
+            sortNumberColumn(sortDirection, columnName);
             break;
         case 'string':
-
-            break;
-        case 'date':
-
+            sortStringColumn(sortDirection, columnName);
             break;
         default:
-            break;
+            return;
     }
+    tableReload(data);
+}
+
+function sortNumberColumn(direction, columnName) {
+    data = data.sort((row1, row2) => {
+        return direction ? row1[columnName] - row2[columnName] : row2[columnName] - row1[columnName];
+    })
+}
+
+function sortStringColumn(direction, columnName) {
+    data = data.sort((row1, row2) => {
+        return direction ? (
+            (row1[columnName] > row2[columnName]) ? -1 : 
+                (row1[columnName] < row2[columnName]) ? 1 : 0
+        ) : (row1[columnName] > row2[columnName]) ? 1 : 
+                (row1[columnName] < row2[columnName]) ? -1 : 0
+    })
 }
 
 function clearTable() {
@@ -53,7 +74,7 @@ function editBtnHandler(row, event, db) {
 
         let rowIndex = data.findIndex(el => el.rowid === Number(targetDataId));
 
-        if (rowIndex !== -1){
+        if (rowIndex !== -1) {
             data[rowIndex] = {
                 rowid: targetDataId,
                 date,
@@ -64,7 +85,7 @@ function editBtnHandler(row, event, db) {
                 sum
             };
         }
-        
+
         tableReload(data);
     }
 
@@ -121,7 +142,7 @@ function addRowHandler(db) {
                 product = form.elements.product.value,
                 quantity = form.elements.quantity.value,
                 sum = form.elements.quantity.value;
-        
+
             //TODO: fix this shit ..., create normal validation
             if (date.length === 0) {
                 alert(`Field date is empty!`);
@@ -148,7 +169,14 @@ function addRowHandler(db) {
                 return;
             }
 
-            data.push({date,provider,warehouse,product,quantity,sum});
+            data.push({
+                date,
+                provider,
+                warehouse,
+                product,
+                quantity,
+                sum
+            });
 
             appendRow(db, date, provider, warehouse, product, quantity, sum);
 
@@ -204,7 +232,7 @@ function renderTableData(tableData) {
     tableBody.insertAdjacentHTML('afterbegin', htmlData);
 }
 
-function tableReload(data){
+function tableReload(data) {
     clearTable();
     renderTableData(data);
 }
@@ -250,7 +278,7 @@ window.onload = () => {
                     })
 
                 document.querySelector('#add-row')
-                    .addEventListener('click', function() {
+                    .addEventListener('click', function () {
                         addRowHandler(db);
                     });
 

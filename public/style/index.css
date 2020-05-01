@@ -1,3 +1,28 @@
+@media print {
+    th[scope='col']:not(:last-child)::after {
+        display: none;
+    }
+}
+
+th[scope='col']:not(:last-child)::after {
+    content: '\f063';
+    color: #6c757d;
+    cursor: pointer;
+    font-family: FontAwesome;
+    vertical-align: middle;
+    float: right;
+}
+
+th[scope='col'][data-sort='desc']:not(:last-child)::after {
+    content: '\f063';
+    color: #28a745;
+}
+
+th[scope='col'][data-sort='asc']:not(:last-child)::after {
+    content: '\f062';
+    color: #ffc107;
+}
+
 .row_action {
     cursor: pointer;
     text-decoration: none;

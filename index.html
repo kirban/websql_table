@@ -27,14 +27,14 @@
         <table class="table table-striped table-bordered d-print-table">
             <thead>
                 <tr class="d-print-table-row">
-                    <th scope="col" onclick="sortColumn('rowid')" class="d-print-table-cell">#</th>
-                    <th scope="col" onclick="sortColumn('date')" class="d-print-table-cell">Дата</th>
-                    <th scope="col" onclick="sortColumn('provider')" class="d-print-table-cell">Наименование поставщика
+                    <th scope="col" onclick="sortColumn('rowid')" class="d-print-table-cell" data-sort="desc">#</th>
+                    <th scope="col" onclick="sortColumn('date')" class="d-print-table-cell" data-sort="none">Дата</th>
+                    <th scope="col" onclick="sortColumn('provider')" class="d-print-table-cell" data-sort="none">Наименование поставщика
                     </th>
-                    <th scope="col" onclick="sortColumn('warehouse')" class="d-print-table-cell">Склад приемки</th>
-                    <th scope="col" onclick="sortColumn('product')" class="d-print-table-cell">Наименование товара</th>
-                    <th scope="col" onclick="sortColumn('quantity')" class="d-print-table-cell">Количество</th>
-                    <th scope="col" onclick="sortColumn('sum')" class="d-print-table-cell">Сумма</th>
+                    <th scope="col" onclick="sortColumn('warehouse')" class="d-print-table-cell" data-sort="none">Склад приемки</th>
+                    <th scope="col" onclick="sortColumn('product')" class="d-print-table-cell" data-sort="none">Наименование товара</th>
+                    <th scope="col" onclick="sortColumn('quantity')" class="d-print-table-cell" data-sort="none">Количество</th>
+                    <th scope="col" onclick="sortColumn('sum')" class="d-print-table-cell" data-sort="none">Сумма</th>
                     <th scope="col" class="d-print-none"></th>
                 </tr>
             </thead>
