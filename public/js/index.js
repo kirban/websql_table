@@ -2,6 +2,50 @@ let data = [],
     addingData = false,
     sortDirection = false; // sortDirection = false - equals desc sort direction
 
+function generateRandomData(db) {
+    let date = randomDate(new Date(2000, 0, 1), new Date()),
+        provider = randomString(14),
+        warehouse = randomString(8),
+        product = randomString(16),
+        quantity = randomInt(2, 40),
+        sum = randomInt(1000, 99999);
+    
+    data.push({
+        date,
+        provider,
+        warehouse,
+        product,
+        quantity,
+        sum
+    });
+
+    appendRow(db, date, provider, warehouse, product, quantity, sum);
+}
+
+function randomDate(start, end) {
+    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    return date.getFullYear() + "-" + 
+        ('0' + (date.getMonth()+1)).slice(-2) + "-" +
+        ('0' + date.getDate()).slice(-2);
+}
+
+function randomString(max) {
+    return Math.random().toString(36).substring(2, max) + Math.random().toString(36).substring(2, max);
+}
+
+function randomInt(min, max) {
+    return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+}
+
+function generateRowsHandler(db, times) {
+    let i = 0;
+    while ( i <= times){
+        generateRandomData(db);
+        i++;
+    }
+    tableReload(data);
+}
+
 function sortColumn(columnName) {
     const dataType = typeof data[0][columnName];
     sortDirection = !sortDirection;
@@ -190,8 +234,6 @@ function addRowHandler(db) {
         })
 }
 
-function generateRandomData() {}
-
 function renderTableData(tableData) {
     const tableBody = document.querySelector("tbody");
     let htmlData = "";
@@ -289,9 +331,14 @@ window.onload = () => {
                     });
 
                 document.getElementById('clear-table')
-                .addEventListener('click', function () {
-                    truncateTable(db)
-                })
+                    .addEventListener('click', function () {
+                        truncateTable(db)
+                    })
+
+                document.getElementById('fill_data')
+                    .addEventListener('click', function (){
+                        generateRowsHandler(db, 5)
+                    })
 
                 renderTableData(data);
             });
