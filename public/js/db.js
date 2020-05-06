@@ -51,6 +51,6 @@ function removeRow(db, id, onResult = null, onError = null) {
 
 function clearTable(db) {
     db.transaction(function (t) {
-        t.executeSql("TRUNCATE TABLE parts")
+        t.executeSql("DELETE FROM parts")
     })
 }

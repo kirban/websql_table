@@ -38,15 +38,21 @@ function sortNumberColumn(direction, columnName) {
 function sortStringColumn(direction, columnName) {
     data = data.sort((row1, row2) => {
         return direction ? (
-            (row1[columnName] > row2[columnName]) ? -1 : 
+                (row1[columnName] > row2[columnName]) ? -1 :
                 (row1[columnName] < row2[columnName]) ? 1 : 0
-        ) : (row1[columnName] > row2[columnName]) ? 1 : 
-                (row1[columnName] < row2[columnName]) ? -1 : 0
+            ) : (row1[columnName] > row2[columnName]) ? 1 :
+            (row1[columnName] < row2[columnName]) ? -1 : 0
     })
 }
 
-function clearTable() {
+function clearTableHTML() {
     document.querySelector('tbody').innerHTML = '';
+}
+
+function truncateTable(db) {
+    clearTable(db);
+    data = [];
+    tableReload(data);
 }
 
 function editBtnHandler(row, event, db) {
@@ -233,7 +239,7 @@ function renderTableData(tableData) {
 }
 
 function tableReload(data) {
-    clearTable();
+    clearTableHTML();
     renderTableData(data);
 }
 
@@ -281,6 +287,11 @@ window.onload = () => {
                     .addEventListener('click', function () {
                         addRowHandler(db);
                     });
+
+                document.getElementById('clear-table')
+                .addEventListener('click', function () {
+                    truncateTable(db)
+                })
 
                 renderTableData(data);
             });
