@@ -188,7 +188,7 @@ function addRowHandler(db) {
             let form = document.forms[0],
                 date = form.elements.date.value,
                 provider = form.elements.provider.value,
-                warehouse = form.elements.provider.value,
+                warehouse = form.elements.warehouse.value,
                 product = form.elements.product.value,
                 quantity = form.elements.quantity.value,
                 sum = form.elements.quantity.value;
